@@ -173,9 +173,25 @@ int hw_get_module_by_class(const char *class_id, const char *inst,
 
     /* Loop through the configuration variants looking for a module */
     for (i=0 ; i<HAL_VARIANT_KEYS_COUNT; i++) {
-        if (property_get(variant_keys[i], prop, NULL) == 0) {
-            continue;
-        }
+
+	if (i == 1){
+		if (property_get(variant_keys[i], prop, "cancro") == 0) {
+		    continue;
+		}
+	}else if (i == 2){
+		if (property_get(variant_keys[i], prop, "MSM8974") == 0) {
+		    continue;
+		}
+	}else if (i == 3){
+		if (property_get(variant_keys[i], prop, "msm8974") == 0) {
+		    continue;
+		}
+	}else{
+		if (property_get(variant_keys[i], prop, NULL) == 0) {
+		    continue;
+		}
+	}
+
         if (hw_module_exists(path, sizeof(path), name, prop) == 0) {
             goto found;
         }
