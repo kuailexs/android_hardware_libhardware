@@ -77,6 +77,7 @@ static int load(const char *id,
      * RTLD_NOW the external symbols will not be global
      */
     handle = dlopen(path, RTLD_NOW);
+    ALOGE("load: module=%s\n", path);
     if (handle == NULL) {
         char const *err_str = dlerror();
         ALOGE("load: module=%s\n%s", path, err_str?err_str:"unknown");
@@ -87,6 +88,7 @@ static int load(const char *id,
     /* Get the address of the struct hal_module_info. */
     const char *sym = HAL_MODULE_INFO_SYM_AS_STR;
     hmi = (struct hw_module_t *)dlsym(handle, sym);
+    ALOGE("load: symbol %s", sym);
     if (hmi == NULL) {
         ALOGE("load: couldn't find symbol %s", sym);
         status = -EINVAL;
